@@ -7,18 +7,17 @@ const helloStrangerElement = getElementById('hello_stranger');
 const chattingBoxElement = getElementById('chatting_box');
 const formElement = getElementById('chat_form');
 
-document.cookie = 'same-site-cookie=foo; SameSite=Lax';
-document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
+// * draw functions 
+const drawHelloStranger = (username) => {
+  (helloStrangerElement.innerHTML = `Hello ${username} Stranger :)`)
+}
 
 function helloUser() {
   const username = prompt('What is your name?');
   socket.emit('new_user', username, (data) => {
-    console.log(data);
+    drawHelloStranger(data);
   }); // 첫번째 인자에는 이벤트 이름, 두번재 인자에는 데이터를 보낼수 있다.
-  console.log(username);
-  socket.on('hello_user', (data) => {
-    console.log(data);
-  }); //data를 받을때 on은 콜백함수로 받을수 있다.
+
 }
 
 function init() {

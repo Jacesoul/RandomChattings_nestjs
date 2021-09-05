@@ -38,9 +38,6 @@ export class ChatsGateway
     @MessageBody() username: string,
     @ConnectedSocket() socket: Socket,
   ) {
-    console.log(socket.id); // n_Fq4nb3ifaYIz_HAAAD, jace | Yo6GSJD9wwJgnZw3AAAF, good
-    console.log(username);
-    socket.emit('hello_user', 'hello' + username);
-    return 'hello World'; // return을 해주면 클라이언트 쪽 'new_user'로 emit한 곳의 data로 전달된다.
+    return username;
   }
 }
