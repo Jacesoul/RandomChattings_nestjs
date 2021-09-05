@@ -38,6 +38,8 @@ export class ChatsGateway
     @MessageBody() username: string,
     @ConnectedSocket() socket: Socket,
   ) {
+    // username db에 저장
+    socket.broadcast.emit('user_connected', username);
     return username;
   }
 }
