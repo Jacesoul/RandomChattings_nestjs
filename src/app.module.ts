@@ -22,7 +22,7 @@ import * as mongoose from 'mongoose';
     ChatsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ChatsGateway],
+  providers: [],
 })
 export class AppModule implements NestModule {
   // 몽고디비 디버깅
