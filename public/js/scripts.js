@@ -13,7 +13,10 @@ socket.on('user_connected', (username) => {
 });
 
 socket.on('new_chat', (data) => {
-  const { chat, username } = data;
+  const {
+    chat,
+    username
+  } = data;
   drawNewChat(`${username} : ${chat}`);
 });
 socket.on('disconnect_user', (username) => drawNewChat(`${username}: bye...`));
@@ -25,18 +28,32 @@ const handleSubmit = (event) => {
   if (inputValue !== '') {
     socket.emit('submit_chat', inputValue);
     // 화면에 그리기
-    drawNewChat(`me : ${inputValue}`);
+    drawNewChat(`me : ${inputValue}`, true);
     event.target.elements[0].value = '';
   }
 };
 
 // * draw functions
 const drawHelloStranger = (username) => {
-  helloStrangerElement.innerHTML = `Hello ${username} Stranger :)`;
+  helloStrangerElement.innerHTML = `Welcome to random Chatting ${username}!`;
 };
-const drawNewChat = (message) => {
+const drawNewChat = (message, isMe = false) => {
   const wrapperChatBox = document.createElement('div');
-  const chatBox = `<div>${message}</div>`;
+  wrapperChatBox.className = 'clearfix';
+  let chatBox;
+  // 내가 썼을때는 오른쪽에 정렬이되고 남이 썼을때는 왼쪽에 정렬
+  if (!isMe)
+    chatBox = `
+    <div class='bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg clearfix break-all'>
+      ${message}
+    </div>
+    `;
+  else
+    chatBox = `
+    <div class='bg-white w-3/4 ml-auto mr-4 my-2 p-2 rounded-lg clearfix break-all'>
+      ${message}
+    </div>
+    `;
   wrapperChatBox.innerHTML = chatBox;
   chattingBoxElement.append(wrapperChatBox);
 };
