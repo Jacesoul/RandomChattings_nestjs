@@ -75,6 +75,8 @@ export class ChatsGateway
     @MessageBody() chat: string,
     @ConnectedSocket() socket: Socket,
   ) {
+    console.log(socket);
+    console.log(chat);
     const socketObj = await this.socketModel.findOne({ id: socket.id });
     await this.chattingModel.create({
       user: socketObj,
